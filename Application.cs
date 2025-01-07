@@ -1,19 +1,17 @@
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
-using VectorCalculations;
-using System;
 
 class Application : Scene
 {
-    uint dotSize = 1;
+    float dotSize = 0.5f;
     bool firstDot = true;
     List<Dot> dots = new List<Dot>();
     Text iteration;
     Button backButton;
 
     int patternCount;
-    int patternCountMax = 10000;
+    int patternCountMax = 50000;
     int iterationCount = 0;
 
     Patterns patterns;
@@ -23,6 +21,9 @@ class Application : Scene
         DODECAGON,
         HEXAGON,
         CARPET,
+        PENTAGON,
+        STAR,
+        
     }
     PatternStates myPattern;
 
@@ -59,6 +60,7 @@ class Application : Scene
             {
                 //reset
                 dots.Clear();
+                Datas.pentagonPreviousPoint = null;
                 patternCount = patternCountMax;
                 iterationCount = 0;
                 iteration.DisplayedString = $"Iteration: {iterationCount}";
@@ -130,6 +132,12 @@ class Application : Scene
             case PatternStates.CARPET:
                 specialPosition = patterns.CarpetPattern(dot);
                 break;
+            case PatternStates.PENTAGON:
+                specialPosition = patterns.PentagonPattern(dot);
+                break;
+            case PatternStates.STAR:
+                specialPosition = patterns.StarPentagonPattern(dot);
+                break;
         }
 
         Dot newDot = new Dot(dotSize)
@@ -145,6 +153,7 @@ class Application : Scene
 
     void BackButton(){
         windowData.Close();
+        Datas.pentagonPreviousPoint = null;
         PatternsOptionScene patternsOption = new PatternsOptionScene();
         Program.MainLoop(patternsOption);
     }

@@ -71,7 +71,7 @@ class PatternsOptionScene : Scene
         triangle.Click += (sender, args) => RunPattern(Application.PatternStates.TRIANGLE);
         dodecagon.Click += (sender, args) => RunPattern(Application.PatternStates.DODECAGON);
         hexagon.Click += (sender, args) => RunPattern(Application.PatternStates.HEXAGON);
-        carpet.Click += (sender, args) => RunPattern(Application.PatternStates.CARPET);
+        carpet.Click += (sender, args) => RunPattern(Application.PatternStates.PENTAGON);
         #endregion
     }
     public override void Functions()

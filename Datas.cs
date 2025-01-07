@@ -5,7 +5,12 @@ public sealed class Datas{
     private static Datas? instance;
     public static RenderWindow? window;
     public static Font vt323 = new Font("VT323-Regular.ttf");
-    private Datas(){}
+    public static int? pentagonPreviousPoint = null;
+    public static int?[] starPentagonPreviousPoint = new int?[2];
+
+    private Datas(){
+        starPentagonPreviousPoint = [null, null];
+    }
 
     public static Datas Instance{
         get {

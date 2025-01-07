@@ -1,3 +1,5 @@
+using System.Numerics;
+using System.Runtime.Versioning;
 using SFML.Graphics;
 using SFML.System;
 using VectorCalculations;
@@ -47,7 +49,7 @@ class Patterns
         }
 
         private set
-        {}
+        { }
     }
 
     public Vector2f[] TriangleVertices
@@ -83,6 +85,24 @@ class Patterns
         private set { }
     }
 
+    public Vector2f[] PentagonVertices
+    {
+        get
+        {
+            float[] pentagonAngles = [90, 162, 234, 306, 18];
+
+            Vector2f[] pentagonPoints = new Vector2f[5];
+            for (int i = 0; i < pentagonPoints.Length; i++)
+            {
+                Vector2f newPointPosition = Points.SpecialPosition(circleBodySize, pentagonAngles[i], circleBody);
+
+                pentagonPoints[i] = newPointPosition;
+            }
+
+            return pentagonPoints;
+        }
+    }
+
     public Vector2f DodecagonPattern(CircleShape dot)
     {
         Random random = new Random();
@@ -111,11 +131,49 @@ class Patterns
         return dot.Position + scaledVector;
     }
 
-    public Vector2f CarpetPattern(CircleShape dot){
+    public Vector2f CarpetPattern(CircleShape dot)
+    {
         Random random = new Random();
         int randomPoint = random.Next(VicsekPoints.Count());
 
         Vector2f scaledVector = Points.LineVector(VicsekPoints, randomPoint, dot, 0.667f);
+
+        return dot.Position + scaledVector;
+    }
+
+    public Vector2f PentagonPattern(CircleShape dot)
+    {
+        Random random = new Random();
+        int randomPoint = random.Next(PentagonVertices.Count());
+        while (randomPoint == Datas.pentagonPreviousPoint)
+        {
+            randomPoint = random.Next(PentagonVertices.Count());
+        }
+        Vector2f scaledVector = Points.LineVector(PentagonVertices, randomPoint, dot, 0.5f);
+        Datas.pentagonPreviousPoint = randomPoint;
+
+        return dot.Position + scaledVector;
+    }
+
+    public Vector2f StarPentagonPattern(CircleShape dot)
+    {
+        Random random = new Random();
+        int randomPoint = random.Next(PentagonVertices.Count());
+        if (Datas.starPentagonPreviousPoint[0] == Datas.starPentagonPreviousPoint[1])
+        {
+            int next = (randomPoint + 1) % PentagonVertices.Count();
+            int prev = (randomPoint - 1 + PentagonVertices.Count()) % PentagonVertices.Count();
+            while (next == Datas.starPentagonPreviousPoint[0] || prev == Datas.starPentagonPreviousPoint[0])
+            {
+                randomPoint = random.Next(PentagonVertices.Count());
+                next = (randomPoint + 1) % PentagonVertices.Count();
+                prev = (randomPoint - 1 + PentagonVertices.Count()) % PentagonVertices.Count();
+            }
+
+        }
+        Vector2f scaledVector = Points.LineVector(PentagonVertices, randomPoint, dot, 0.5f);
+        Datas.starPentagonPreviousPoint[0] = Datas.starPentagonPreviousPoint[1];
+        Datas.starPentagonPreviousPoint[1] = randomPoint;
 
         return dot.Position + scaledVector;
     }

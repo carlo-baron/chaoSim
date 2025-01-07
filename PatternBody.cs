@@ -14,6 +14,10 @@ class Body{
                 return LineMaker(patterns.HexagonVertices);
             case Application.PatternStates.CARPET:
                 return LineMaker(patterns.squareBodyPoints);
+            case Application.PatternStates.PENTAGON:
+                return LineMaker(patterns.PentagonVertices);
+            case Application.PatternStates.STAR:
+                return LineMaker(patterns.PentagonVertices);
             default:
                 return[];
         }

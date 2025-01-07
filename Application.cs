@@ -60,7 +60,7 @@ class Application : Scene
             {
                 //reset
                 dots.Clear();
-                Datas.pentagonPreviousPoint = null;
+                Datas.lastPoint = null;
                 patternCount = patternCountMax;
                 iterationCount = 0;
                 iteration.DisplayedString = $"Iteration: {iterationCount}";
@@ -94,6 +94,7 @@ class Application : Scene
         }
 
         // display first dot, then start the algorithm
+        // all of this handle the drawing part
         if (dots.Count > 0)
         {
             Dot? lastDot = null;
@@ -114,6 +115,7 @@ class Application : Scene
         windowData.Draw(iteration);
     }
 
+    // gets the new dot and its position and add it to the list
     void PatternMakingBehavior(CircleShape dot)
     {
         Vector2f specialPosition = new Vector2f(0, 0);
@@ -153,7 +155,7 @@ class Application : Scene
 
     void BackButton(){
         windowData.Close();
-        Datas.pentagonPreviousPoint = null;
+        Datas.lastPoint = null;
         PatternsOptionScene patternsOption = new PatternsOptionScene();
         Program.MainLoop(patternsOption);
     }

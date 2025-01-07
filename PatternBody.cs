@@ -1,9 +1,13 @@
 using SFML.Graphics;
 using SFML.System;
 
+/// <summary>
+/// This is where the lines are made to be used for drawing the shapes.
+/// </summary>
 class Body{
     static Patterns patterns = new Patterns();
 
+    // shapes where the chaos game is performed
     public static RectangleShape[] PatternBodyLines(Application.PatternStates state){
         switch(state){
             case Application.PatternStates.TRIANGLE:

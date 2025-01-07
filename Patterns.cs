@@ -3,6 +3,10 @@ using System.Runtime.Versioning;
 using SFML.Graphics;
 using SFML.System;
 using VectorCalculations;
+
+/// <summary>
+/// Contains the vertices of the shape, and the rules for the chaos game. The rules(which are functions) returns the location of where the dot should be drawn.
+/// </summary>
 class Patterns
 {
     RectangleShape squareBody;
@@ -14,6 +18,8 @@ class Patterns
 
     public Patterns()
     {
+        //squareBody and circleBody are invisble shapes, where the specialPoints are derived.
+
         squareBody = new RectangleShape(new Vector2f(400, 400));
         squareBody.Origin = FindCenter.Rectangle(squareBody.Size);
         squareBody.Position = FindCenter.Window();
@@ -33,6 +39,7 @@ class Patterns
 
     }
 
+    #region Vertices/Points Properties
     public Vector2f[] squareBodyPoints
     {
         get { return Points.RectangleVertices(squareBody); }
@@ -102,6 +109,7 @@ class Patterns
             return pentagonPoints;
         }
     }
+    #endregion
 
     public Vector2f DodecagonPattern(CircleShape dot)
     {
@@ -141,16 +149,18 @@ class Patterns
         return dot.Position + scaledVector;
     }
 
+
+
     public Vector2f PentagonPattern(CircleShape dot)
     {
         Random random = new Random();
         int randomPoint = random.Next(PentagonVertices.Count());
-        while (randomPoint == Datas.pentagonPreviousPoint)
+        while (randomPoint == Datas.lastPoint)
         {
             randomPoint = random.Next(PentagonVertices.Count());
         }
         Vector2f scaledVector = Points.LineVector(PentagonVertices, randomPoint, dot, 0.5f);
-        Datas.pentagonPreviousPoint = randomPoint;
+        Datas.lastPoint = randomPoint;
 
         return dot.Position + scaledVector;
     }
@@ -159,11 +169,11 @@ class Patterns
     {
         Random random = new Random();
         int randomPoint = random.Next(PentagonVertices.Count());
-        if (Datas.starPentagonPreviousPoint[0] == Datas.starPentagonPreviousPoint[1])
+        if (Datas.lastTwoPoints[0] == Datas.lastTwoPoints[1])
         {
             int next = (randomPoint + 1) % PentagonVertices.Count();
             int prev = (randomPoint - 1 + PentagonVertices.Count()) % PentagonVertices.Count();
-            while (next == Datas.starPentagonPreviousPoint[0] || prev == Datas.starPentagonPreviousPoint[0])
+            while (next == Datas.lastTwoPoints[0] || prev == Datas.lastTwoPoints[0])
             {
                 randomPoint = random.Next(PentagonVertices.Count());
                 next = (randomPoint + 1) % PentagonVertices.Count();
@@ -172,8 +182,8 @@ class Patterns
 
         }
         Vector2f scaledVector = Points.LineVector(PentagonVertices, randomPoint, dot, 0.5f);
-        Datas.starPentagonPreviousPoint[0] = Datas.starPentagonPreviousPoint[1];
-        Datas.starPentagonPreviousPoint[1] = randomPoint;
+        Datas.lastTwoPoints[0] = Datas.lastTwoPoints[1];
+        Datas.lastTwoPoints[1] = randomPoint;
 
         return dot.Position + scaledVector;
     }

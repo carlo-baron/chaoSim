@@ -23,7 +23,8 @@ class Application : Scene
         CARPET,
         PENTAGON,
         STAR,
-        
+        SNOWSQUARE,
+
     }
     PatternStates myPattern;
 
@@ -139,6 +140,9 @@ class Application : Scene
                 break;
             case PatternStates.STAR:
                 specialPosition = patterns.StarPentagonPattern(dot);
+                break;
+            case PatternStates.SNOWSQUARE:
+                specialPosition = patterns.CarpetSnowPattern(dot);
                 break;
         }
 

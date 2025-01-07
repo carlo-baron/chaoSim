@@ -22,6 +22,8 @@ class Body{
                 return LineMaker(patterns.PentagonVertices);
             case Application.PatternStates.STAR:
                 return LineMaker(patterns.PentagonVertices);
+            case Application.PatternStates.SNOWSQUARE:
+                return LineMaker(patterns.squareBodyPoints);
             default:
                 return[];
         }

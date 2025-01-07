@@ -46,7 +46,7 @@ class Patterns
         private set { }
     }
 
-    public Vector2f[] VicsekPoints
+    public Vector2f[] VicsekVertices
     {
         get
         {
@@ -142,14 +142,12 @@ class Patterns
     public Vector2f CarpetPattern(CircleShape dot)
     {
         Random random = new Random();
-        int randomPoint = random.Next(VicsekPoints.Count());
+        int randomPoint = random.Next(VicsekVertices.Count());
 
-        Vector2f scaledVector = Points.LineVector(VicsekPoints, randomPoint, dot, 0.667f);
+        Vector2f scaledVector = Points.LineVector(VicsekVertices, randomPoint, dot, 0.667f);
 
         return dot.Position + scaledVector;
     }
-
-
 
     public Vector2f PentagonPattern(CircleShape dot)
     {
@@ -184,6 +182,22 @@ class Patterns
         Vector2f scaledVector = Points.LineVector(PentagonVertices, randomPoint, dot, 0.5f);
         Datas.lastTwoPoints[0] = Datas.lastTwoPoints[1];
         Datas.lastTwoPoints[1] = randomPoint;
+
+        return dot.Position + scaledVector;
+    }
+
+    // im running out of names lol
+    public Vector2f CarpetSnowPattern(CircleShape dot)
+    {
+        Random random = new Random();
+        int randomPoint = random.Next(squareBodyPoints.Count());
+    
+        while(randomPoint == ((Datas.lastPoint + 2) % 4)){
+            randomPoint = random.Next(squareBodyPoints.Count());
+        }
+        Datas.lastPoint = randomPoint;
+
+        Vector2f scaledVector = Points.LineVector(squareBodyPoints, randomPoint, dot, 0.5f);
 
         return dot.Position + scaledVector;
     }

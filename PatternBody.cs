@@ -17,13 +17,15 @@ class Body{
             case Application.PatternStates.HEXAGON:
                 return LineMaker(patterns.HexagonVertices);
             case Application.PatternStates.CARPET:
-                return LineMaker(patterns.squareBodyPoints);
+                return LineMaker(patterns.squareBodyVertices);
             case Application.PatternStates.PENTAGON:
                 return LineMaker(patterns.PentagonVertices);
             case Application.PatternStates.STAR:
                 return LineMaker(patterns.PentagonVertices);
             case Application.PatternStates.SNOWSQUARE:
-                return LineMaker(patterns.squareBodyPoints);
+                return LineMaker(patterns.squareBodyVertices);
+            case Application.PatternStates.LEAFSQUARE:
+                return LineMaker(patterns.squareBodyVertices);
             default:
                 return[];
         }

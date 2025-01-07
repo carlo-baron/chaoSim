@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("pattern-YT-RECREATE")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13ca06454356e6f7af0f90da47410414e03d836b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+359c1c3abd7de298ec335e62f99ba7121ae6968b")]
 [assembly: System.Reflection.AssemblyProductAttribute("pattern-YT-RECREATE")]
 [assembly: System.Reflection.AssemblyTitleAttribute("pattern-YT-RECREATE")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

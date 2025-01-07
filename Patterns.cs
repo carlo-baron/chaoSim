@@ -39,8 +39,8 @@ class Patterns
 
     }
 
-    #region Vertices/Points Properties
-    public Vector2f[] squareBodyPoints
+    #region Vertices Properties
+    public Vector2f[] squareBodyVertices
     {
         get { return Points.RectangleVertices(squareBody); }
         private set { }
@@ -50,7 +50,7 @@ class Patterns
     {
         get
         {
-            List<Vector2f> squarePoints = squareBodyPoints.ToList();
+            List<Vector2f> squarePoints = squareBodyVertices.ToList();
             squarePoints.Add(squareBody.Position);
             return squarePoints.ToArray();
         }
@@ -165,39 +165,48 @@ class Patterns
 
     public Vector2f StarPentagonPattern(CircleShape dot)
     {
-        Random random = new Random();
-        int randomPoint = random.Next(PentagonVertices.Count());
-        if (Datas.lastTwoPoints[0] == Datas.lastTwoPoints[1])
-        {
-            int next = (randomPoint + 1) % PentagonVertices.Count();
-            int prev = (randomPoint - 1 + PentagonVertices.Count()) % PentagonVertices.Count();
-            while (next == Datas.lastTwoPoints[0] || prev == Datas.lastTwoPoints[0])
-            {
-                randomPoint = random.Next(PentagonVertices.Count());
-                next = (randomPoint + 1) % PentagonVertices.Count();
-                prev = (randomPoint - 1 + PentagonVertices.Count()) % PentagonVertices.Count();
-            }
-
-        }
-        Vector2f scaledVector = Points.LineVector(PentagonVertices, randomPoint, dot, 0.5f);
-        Datas.lastTwoPoints[0] = Datas.lastTwoPoints[1];
-        Datas.lastTwoPoints[1] = randomPoint;
-
-        return dot.Position + scaledVector;
+        return LastTwoPointPattern(dot, PentagonVertices);
     }
 
     // im running out of names lol
     public Vector2f CarpetSnowPattern(CircleShape dot)
     {
         Random random = new Random();
-        int randomPoint = random.Next(squareBodyPoints.Count());
+        int randomPoint = random.Next(squareBodyVertices.Count());
     
         while(randomPoint == ((Datas.lastPoint + 2) % 4)){
-            randomPoint = random.Next(squareBodyPoints.Count());
+            randomPoint = random.Next(squareBodyVertices.Count());
         }
         Datas.lastPoint = randomPoint;
 
-        Vector2f scaledVector = Points.LineVector(squareBodyPoints, randomPoint, dot, 0.5f);
+        Vector2f scaledVector = Points.LineVector(squareBodyVertices, randomPoint, dot, 0.5f);
+
+        return dot.Position + scaledVector;
+    }
+
+    public Vector2f CarpetLeafPattern(CircleShape dot){
+        return LastTwoPointPattern(dot, squareBodyVertices);
+    }
+
+    private Vector2f LastTwoPointPattern(CircleShape dot, Vector2f[] points)
+    {
+        Random random = new Random();
+        int randomPoint = random.Next(points.Count());
+        if (Datas.lastTwoPoints[0] == Datas.lastTwoPoints[1])
+        {
+            int next = (randomPoint + 1) % points.Count();
+            int prev = (randomPoint - 1 + points.Count()) % points.Count();
+            while (next == Datas.lastTwoPoints[0] || prev == Datas.lastTwoPoints[0])
+            {
+                randomPoint = random.Next(points.Count());
+                next = (randomPoint + 1) % points.Count();
+                prev = (randomPoint - 1 + points.Count()) % points.Count();
+            }
+
+        }
+        Vector2f scaledVector = Points.LineVector(points, randomPoint, dot, 0.5f);
+        Datas.lastTwoPoints[0] = Datas.lastTwoPoints[1];
+        Datas.lastTwoPoints[1] = randomPoint;
 
         return dot.Position + scaledVector;
     }

@@ -1,7 +1,5 @@
 # 🌌 chaoSim
 
-![Fractal Patterns Preview](screenshot.png)
-
 > A C# application using **SFML.Net** that simulates chaos games to generate beautiful fractal patterns like the Sierpiński triangle and Vicsek fractal.
 
 ---
@@ -41,6 +39,8 @@ dotnet run
 You can also open the project directly in **Visual Studio** or **VS Code**
 and start the simulation from there.
 
+Also this might not work on operating system that is not windows, and I don't know how to fix it yet so sorry in advance :(
+
 ---
 
 ## 🕹️ Usage
@@ -66,14 +66,6 @@ and start the simulation from there.
 * Simple GUI navigation built with **SFML.Net**
 * Lightweight and beginner-friendly C# codebase
 * Built with a focus on clarity, learning, and visual beauty
-
----
-
-## 📸 Screenshots
-
-![Screenshot 1](screenshot1.png)
-![Screenshot 2](screenshot2.png)
-![Screenshot 3](screenshot3.png)
 
 ---
 
